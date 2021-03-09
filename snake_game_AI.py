@@ -14,7 +14,7 @@ class Direction(Enum):
 
 Point = namedtuple('Point','x , y')
 BLOCK_SIZE = 20
-SPEED = 10
+SPEED = 200
 #rgb colors
 BLACK = (0,0,0)
 WHITE = (255,255,255)
@@ -45,6 +45,7 @@ class SnakeGameAI:
         pygame.display.set_caption('Snake')
         self.clock = pygame.time.Clock()
         self.reset()
+        self.count =0 
         
     
     def reset(self):
@@ -85,7 +86,8 @@ class SnakeGameAI:
         game_over=False
         if self.is_collision() or self.frame_iteration > 100*len(self.snake):
             game_over=True
-            reward = -10
+            reward = self.count-10
+            self.count = 0
             return reward ,game_over,self.score
 
 
@@ -93,9 +95,11 @@ class SnakeGameAI:
         if self.head == self.food:
             self.score+=1
             self._place_food()
-            reward = 10
+            reward = self.count + 100
+            self.count = 0
         else:
             self.snake.pop()
+            self.count=0
             
         #.update Ui and clock
         self._update_ui()

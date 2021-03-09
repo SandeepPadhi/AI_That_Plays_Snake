@@ -18,6 +18,7 @@ class Agent:
         self.gamma = 0.9 #discount rate
         self.memory = deque(maxlen=MAX_MEMORY) #popleft()
         self.model = Linear_QNet(11,256,3) #input_lauer=11,hidden:256 ,output:3
+        #self.model.load_state_dict(torch.load('./model/model.pth'))
         self.trainer = QTrainer(self.model,lr=LR,gamma=self.gamma)
 
 
@@ -99,7 +100,7 @@ class Agent:
         self.epsilon = 80 - self.n_games
         final_move = [0,0,0]
         #if random.randint(0,200) < self.epsilon: #This was original ,we made small changes to it
-        if random.randint(0,200) < 40 and self.n_games<90:
+        if random.randint(0,200) < 20 and self.n_games<90:
             move = random.randint(0,2)
             final_move[move]=1
         else:
@@ -142,7 +143,7 @@ def train():
             agent.n_games+=1
             agent.train_long_memory()
 
-            if score > record:
+            if score >=record:
                 record = score
                 agent.model.save()
             
