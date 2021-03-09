@@ -42,7 +42,7 @@ class SnakeGameAI:
 
         #init display
         self.display = pygame.display.set_mode((self.w,self.h))
-        pygame.display.set_caption('Snake')
+        pygame.display.set_caption('AI_That_Plays_Snake - SANDEEP PADHI - IIIT LUCKNOW')
         self.clock = pygame.time.Clock()
         self.reset()
         self.count =0 
@@ -95,7 +95,7 @@ class SnakeGameAI:
         if self.head == self.food:
             self.score+=1
             self._place_food()
-            reward = self.count + 100
+            reward = self.count + 10
             self.count = 0
         else:
             self.snake.pop()
