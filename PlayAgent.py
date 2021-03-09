@@ -18,7 +18,7 @@ class Agent:
         self.gamma = 0.9 #discount rate
         self.memory = deque(maxlen=MAX_MEMORY) #popleft()
         self.model = Linear_QNet(11,256,3) #input_lauer=11,hidden:256 ,output:3
-        #self.model.load_state_dict(torch.load('./model/model.pth'))
+        self.model.load_state_dict(torch.load('./optimized_model/model.pth'))
         self.trainer = QTrainer(self.model,lr=LR,gamma=self.gamma)
 
 
@@ -99,7 +99,7 @@ class Agent:
         # random moves : tradeoff exploration / exploitation
         self.epsilon = 80 - self.n_games
         final_move = [0,0,0]
-        if random.randint(0,200) < self.epsilon: #This was original ,we made small changes to it
+        if random.randint(0,200) < self.epsilon and False: #This was original ,we made small changes to it
         #if random.randint(0,200) < 20 and self.n_games<90:
             move = random.randint(0,2)
             final_move[move]=1
@@ -176,8 +176,8 @@ def plot(score,mean_score):
     plt.plot(list(score))
     
     plt.plot(list(mean_score))
-    plt.legend(["Dataset1","Dataset2"])
-    plt.title(str(i+1))
+    plt.legend(["Score","MeanScore"])
+    plt.title("Sandeep Padhi - IIIT Lucknow - AI That Plays Snake")
     plt.draw()
     plt.pause(0.1)
 
