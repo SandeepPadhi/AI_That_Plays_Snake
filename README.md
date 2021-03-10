@@ -6,6 +6,6 @@ PlayAgent.py - Is the driving agent
 
 model.py - is the pytorch model
 
-Snakegame_AI.py - contains snake game model built using pytorch
+Snakegame_AI.py - contains snake game model built using pygame
 
 
